@@ -1,0 +1,27 @@
+# Correlation analysis against result of candidates
+
+source("src/loadCleanedSSLCData.R")
+source("src/correlation/correlation_helper.R")
+
+data <- loadSSLCData()
+allrecords <- data$allrecords
+
+x = data.frame(PLACE = allrecords[["URBAN_RURAL"]],
+               CASTE = allrecords[["NRC_CASTE_CODE"]],
+               GENDER = allrecords[["NRC_GENDER_CODE"]],
+               SCHOOL_TYPE = allrecords[["SCHOOL_TYPE"]],
+               MEDIUM = allrecords[["NRC_MEDIUM"]],
+               PHYSICAL_CONDITION = allrecords[["NRC_PHYSICAL_CONDITION"]],
+               CANDIDATE_TYPE = allrecords[["CANDIDATE_TYPE"]],
+               DISTRICT = allrecords[["DIST_CODE"]],
+               #TALUK = allrecords[["TALUQ_CODE"]],
+               RESULT = allrecords[["NRC_RESULT"]])
+
+
+library(caret)
+dmy <- dummyVars("~ .", data = x)
+xTrsf <- data.frame(predict(dmy, newdata = x))
+corMasterList <- flattenSquareMatrix(cor.prob(xTrsf))
+corList <- corMasterList[order(-abs(corMasterList$cor)),]
+selectedSub <- subset(corList, (abs(cor) > 0.1 & (j == 'RESULT.P') &( i != 'RESULT.P' & i != 'RESULT.F' )))
+selectedSub
