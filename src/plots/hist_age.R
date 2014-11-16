@@ -1,4 +1,4 @@
-source("src/loadCleanedSSLCData.R")
+source("src/utils.R")
 
 age <- function(birthday) {
     as.integer(as.integer(Sys.Date() - birthday)/365.25)

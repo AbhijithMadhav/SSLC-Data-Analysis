@@ -1,4 +1,4 @@
-source("src/loadCleanedSSLCData.R")
+source("src/utils.R")
 
 data <- loadSSLCData()
 allrecords <- data$allrecords

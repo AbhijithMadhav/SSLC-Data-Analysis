@@ -1,6 +1,6 @@
 # Correlation analysis against result of candidates
 
-source("src/loadCleanedSSLCData.R")
+source("src/utils.R")
 source("src/correlation/correlation_helper.R")
 
 data <- loadSSLCData()

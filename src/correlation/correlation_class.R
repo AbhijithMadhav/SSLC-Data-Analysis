@@ -1,6 +1,6 @@
 # correlation analysis against class obtained by student
 
-source("src/loadCleanedSSLCData.R")
+source("src/utils.R")
 source("src/correlation/correlation_helper.R")
 
 data <- loadSSLCData()

@@ -4,7 +4,7 @@
 
 # Answer : The former calculate on a correlated matrix which is scaled
 
-source("src/loadCleanedSSLCData.R")
+source("src/utils.R")
 
 data <- loadSSLCData()
 allrecords <- data$allrecords

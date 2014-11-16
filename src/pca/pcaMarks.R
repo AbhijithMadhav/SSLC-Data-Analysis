@@ -1,7 +1,7 @@
 # Purpose : To figure out the proportion of the variance in marks 
 # of the students captured by the principle components
 
-source("src/loadCleanedSSLCData.R")
+source("src/utils.R")
 data <- loadSSLCData()
 marks = data.frame(L1 = data$allrecords[["L1_MARKS"]],
                         L2 = data$allrecords[["L2_MARKS"]],

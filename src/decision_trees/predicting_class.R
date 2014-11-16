@@ -1,6 +1,6 @@
 library(rpart)
 
-source("src/loadCleanedSSLCData.R")
+source("src/utils.R")
 
 data <-loadSSLCData()
 trainrecords = data[["trainrecords"]]
