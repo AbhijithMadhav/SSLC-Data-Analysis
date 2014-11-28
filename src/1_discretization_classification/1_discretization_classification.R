@@ -1,8 +1,6 @@
 source("src/utils.R")
 
 data <- loadSSLCData()
-marks <- getmarks(data$allrecords)
-
 
 # Classification using decision trees
 rpart6 <- my_rpart(NRC_CLASS ~ L1_CLASS + L2_CLASS + L3_CLASS + S1_CLASS 

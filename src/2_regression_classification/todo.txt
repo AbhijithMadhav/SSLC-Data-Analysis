@@ -1,0 +1,3 @@
+1. Explore using other classification techniques apart from knn, especially naive bayesian
+2. Explore the synergy function for regression
+3. Explore logistic regressionx

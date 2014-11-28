@@ -1,0 +1,10 @@
+Cluster the records using marks as the attributes
+-> DBScan looks promising
+-> KMeans is also ok
+
+For DBScan determine K and eps
+For KMeans try with a fiew k's
+
+Then try association rule mining for each cluster and try to come up with characterization
+Let the top association rule be 
+S1_CLASS=D, S3_CLASS=2 -> 
