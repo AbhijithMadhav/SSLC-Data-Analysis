@@ -79,30 +79,23 @@ transactions <- data$allrecords[, c("DIST_CODE", "TALUQ_CODE", "SCHOOL_CODE",
 transactions[, "CLUSTER_ID"] <- as.factor(kmeans.out$cluster)
 names(transactions)
 
-# Generate rules for each cluster
-# As the rhs is being forced to be the cluster id and rules are generated
-# per cluster, confidence and lift will be 1. The lift being 1 
-rules <- list()
-for (cluster_id in 1:4) {
-    rules[cluster_id] <- apriori(as(transactions[transactions$CLUSTER_ID == cluster_id, ], 
-                                 "transactions"),
-                              appearance = list(lhs = c(paste("CLUSTER_ID=", 
-                                                              cluster_id, 
-                                                              sep = "")), 
-                                                default = "rhs"),
-                              parameter = list(confidence = 0.5, minlen = 2, maxlen = 2))
-}
+# Generate rules
+cluster.rules <- apriori(as(transactions, "transactions"),
+                             appearance = list(lhs = c("CLUSTER_ID=1",
+                                                       "CLUSTER_ID=2",
+                                                       "CLUSTER_ID=3",
+                                                       "CLUSTER_ID=4"), 
+                                               default = "rhs"),
+                             parameter = list(support = 0.01, 
+                                              confidence = 0.7,
+                                              minlen = 2,
+                                              maxlen = 2))
+# Confidence = 0.7
+# 0.8 gives only categorization based on candidate type and physical condition
 
 
-# Characterization of each of the clusters without marks
-
-# Common attributes
-# normal physical condition, fresher, general caste
-for (cluster_id in 1:4) {
-    inspect(sort(rules[[cluster_id]], by = "support")) # as confidence and list are 1
-# Cluster 1 : kannada medium, pass, rural, boys
-# Cluster 2 : 1st class, urban , english, girl
-# Cluster 3 : kannada, rural, 2nd class, girl
-# Cluster 4: fail, kannada, boys, urban
-}
-
+inspect(sort(cluster.rules, by = "confidence"))
+# Cluster 1 : normal PC(1), fresher(1), kannada medium(1), pass
+# Cluster 2 : fresher(1), normal PC(1), general caste(1), 1st class
+# Cluster 3 : normal PC(1), fresher(1), general caste(1), kannada medium(1)
+# Cluster 4 : fail, normal PC(1), s2_fail, s1_fail, kannada(1), l1_fail

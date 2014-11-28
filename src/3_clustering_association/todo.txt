@@ -6,7 +6,4 @@ Try with dbscan
 # is. This measure is based on the cohesion within the cluster and the
 # seperation amongst clusters
 
-The lift is 1 in all rules. Conceptually is the process of forcing the cluster 
-id in the rhs the right thing to do?
-
-Should the marks be included in the item set
+Try with different number of clusters
