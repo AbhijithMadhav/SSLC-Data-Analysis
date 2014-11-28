@@ -1,3 +1,7 @@
+library("arules")
+library("arulesViz")
+library(cluster)
+
 source("src/utils.R")
 data <- loadSSLCData()
 marks <- getmarks(data$allrecords)
@@ -16,13 +20,6 @@ for (k in 2:10) {
 plot(centers, sse)
 lines(centers, sse)
 # Elbow is at 4 clusters
-
-# TODO
-# silhouette coefficient : Gives a numerical measure of how good the clustering
-# is. This measure is based on the cohesion within the cluster and the
-# seperation amongst clusters
-library(cluster)
-# disse <- daisy(marks) # Not able to do this as dataset is too large
 
 # kmeans for 4 clusters
 kmeans.out <- kmeans(scale(marks), centers = 4, iter.max = 20, nstart = 5)
@@ -70,30 +67,34 @@ plot(marks.svd$u[, 1:2], col = kmeans.out$cluster, xaxt = "n", yaxt = "n",
 # consequent
 
 # Create transactions
+# Not including marks related attributes in the itemset as a performance based 
+# characterization has already been determined above
 transactions <- data$allrecords[, c("DIST_CODE", "TALUQ_CODE", "SCHOOL_CODE", 
                                     "SCHOOL_TYPE", "URBAN_RURAL", 
                                     "NRC_CASTE_CODE", "NRC_GENDER_CODE",
                                     "NRC_MEDIUM", "NRC_PHYSICAL_CONDITION",
-                                    "NRC_CLASS", "CANDIDATE_TYPE")]
+                                    "NRC_CLASS", "CANDIDATE_TYPE",
+                                    "L1_CLASS", "L2_CLASS", "L3_CLASS",
+                                    "S1_CLASS", "S2_CLASS", "S3_CLASS")]
 transactions[, "CLUSTER_ID"] <- as.factor(kmeans.out$cluster)
 names(transactions)
 
 # Generate rules for each cluster
-library("arules")
-library("arulesViz")
+# As the rhs is being forced to be the cluster id and rules are generated
+# per cluster, confidence and lift will be 1. The lift being 1 
 rules <- list()
-for (cluster in 1:4) {
-    rules[cluster] <- apriori(as(transactions[transactions$CLUSTER_ID == cluster, ], 
+for (cluster_id in 1:4) {
+    rules[cluster_id] <- apriori(as(transactions[transactions$CLUSTER_ID == cluster_id, ], 
                                  "transactions"),
-                              appearance = list(rhs = c(paste("CLUSTER_ID=", 
-                                                              cluster, 
+                              appearance = list(lhs = c(paste("CLUSTER_ID=", 
+                                                              cluster_id, 
                                                               sep = "")), 
-                                                default = "lhs"),
-                              parameter = list(support = 0.5))
+                                                default = "rhs"),
+                              parameter = list(confidence = 0.5, minlen = 2, maxlen = 2))
 }
 
 
-# Characterization of each of the clusters
+# Characterization of each of the clusters without marks
 
 # Common attributes
 # normal physical condition, fresher, general caste
@@ -104,3 +105,4 @@ for (cluster_id in 1:4) {
 # Cluster 3 : kannada, rural, 2nd class, girl
 # Cluster 4: fail, kannada, boys, urban
 }
+
