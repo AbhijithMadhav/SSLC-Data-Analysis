@@ -96,6 +96,7 @@ students <- clusterAndClassify(students.data$allrecords, 4)
 nrow(students.data$allrecords)
 my_inspect(students$rules, students$mean_marks)
 plotClusterMarks(students.data$allrecords, students$kmeans.out)
+plotElbow(students.data$allrecords)
 
 # Urban 
 urban.data <- students.data$allrecords[students.data$allrecords$URBAN_RURAL == 'U', ]
