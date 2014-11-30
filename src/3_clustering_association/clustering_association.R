@@ -35,8 +35,7 @@ table(kmeans.out$cluster, data$allrecords$NRC_CLASS)
 # of mean marks
 mean_marks <- c()
 for (cluster in 1:4) {
-    mean_marks[cluster] 
-    <- mean(data$allrecords$TOTAL_MARKS[kmeans.out$cluster == cluster])
+    mean_marks[cluster] <- mean(data$allrecords$TOTAL_MARKS[kmeans.out$cluster == cluster])
 }
 barplot(mean_marks, #col = 1:4, 
         names.arg = c("Cluster 1", "Cluster 2", "Cluster 3", "Cluster 4"),
