@@ -1,0 +1,32 @@
+\documentclass[11pt]{report} % use larger type; default would be 10pt
+
+\usepackage{mysty}
+%%% The "real" document content comes below...
+\newcommand{\horrule}[1]{\rule{\linewidth}{#1}} % Create horizontal rule command with 1 argument of height
+
+\title{	
+\normalfont \normalsize 
+\textsc{International Institute of Information Technology, Bangalore} \\ [25pt] % Your university, school and/or department name(s)
+\horrule{0.5pt} \\[0.4cm] % Thin top horizontal rule
+\huge Analytics On A Subset Of The 2011 SSLC Data Set \\ Report \\ % The assignment title
+\horrule{2pt} \\[0.5cm] % Thick bottom horizontal rule
+}
+%\title{Smart Water Networks \\ Project Report}
+\author{Abhijith Madhav \and Saumya Tayal \and Nikita Shah}
+%\date{} % Activate to display a given date or no date (if empty),
+         % otherwise the current date is printed 
+
+\begin{document}
+\maketitle
+
+\tableofcontents
+\input{tex/data_prep_characterization.tex}
+\input{tex/experiment1.tex}
+\input{tex/experiment2.tex}
+\input{tex/experiment3.tex}
+\input{tex/experiment8.tex}
+\end{document}
+
+%--------------------------------------------------------------------------------------
+
+

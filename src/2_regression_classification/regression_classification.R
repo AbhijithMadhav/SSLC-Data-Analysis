@@ -14,6 +14,7 @@ lm.out <- lm(marks$TOTAL_MARKS ~ marks$L1_MARKS + marks$L2_MARKS
 # the end looks all the same as the AICc rankings :-|
 library("MuMIn")
 best_models <- list()
+residuals <- c()
 for (n in 1:5)
 {
     dredge.out <- dredge(lm.out, m.max = n, m.min = n)
@@ -26,10 +27,14 @@ for (n in 1:5)
         {
             min_residual_se <- residual_se
             model <- getCall(dredge.out, i)
+            min_residuals <- sum(lm(getCall(dredge.out, i))$residuals)
         }
     }
     best_models[length(best_models) + 1] <- list(model)
+    residuals[n] <- min_residuals
 }
+
+lines(c(1, 2, 3, 4, 5), residuals)
 
 # Classification using knn
 marks_trainrecords <- getmarks(data$trainrecords)[, -7]
@@ -80,6 +85,19 @@ knn1 <- my_knn(marks_trainrecords$NRC_CLASS ~ marks_trainrecords$S2_MARKS,
                marks_trainrecords, data$trainrecords$NRC_CLASS,
                marks_testrecords, data$testrecords$NRC_CLASS)
 
+plot(c(1, 2, 3, 4, 5, 6), 
+     c(knn1$error, knn2$error, knn3$error, knn4$error, knn5$error, knn6$error),
+     ylab = "Misclassification error for different KNN models", 
+     xlab = "Number of predictors(Best combination according to linear regression)", 
+    pch = 21)
+lines(c(1, 2, 3, 4, 5, 6), 
+      c(knn1$error, knn2$error, knn3$error, knn4$error, knn5$error, knn6$error))
+text(1, knn1$error, "S2")
+text(2, knn2$error, "L1, L2")
+text(3, knn3$error, "L1, L2, S3")
+text(4, knn4$error, "L1, L2, S1, S3")
+text(5, knn5$error, "L1, L2, L3, S1, S3")
+text(6, knn6$error, "L1, L2, L3, S1, S2, S3")
 
 # Classification using decision trees - Illustration of descretization errors
 
@@ -111,6 +129,6 @@ rpart2 <- my_rpart(NRC_CLASS ~ L1_CLASS + L2_CLASS,
                    data$testrecords$NRC_CLASS)
 
 # Best for 1 predictor
-rpart1 <- my_rpart(NRC_CLASS ~ S2_CLASS,
+# rpart1 <- my_rpart(NRC_CLASS ~ S2_CLASS,
                    data$trainrecords, data$testrecords, 
                    data$testrecords$NRC_CLASS)

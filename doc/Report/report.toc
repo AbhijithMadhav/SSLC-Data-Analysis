@@ -1,0 +1,8 @@
+\contentsline {chapter}{\numberline {1}Data Preparation And Characterization}{2}{chapter.1}
+\contentsline {section}{\numberline {1.1}Data Preparation}{2}{section.1.1}
+\contentsline {section}{\numberline {1.2}Data Set Characterization}{3}{section.1.2}
+\contentsline {section}{\numberline {1.3}Code}{3}{section.1.3}
+\contentsline {chapter}{\numberline {2}Discretization + Classification}{4}{chapter.2}
+\contentsline {chapter}{\numberline {3}Regression + Classification}{6}{chapter.3}
+\contentsline {chapter}{\numberline {4}Clustering + Association Rules}{8}{chapter.4}
+\contentsline {chapter}{\numberline {5}Cross Cluster Analysis}{12}{chapter.5}

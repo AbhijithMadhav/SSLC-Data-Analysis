@@ -1,0 +1,35 @@
+\chapter{Data Preparation And Characterization}
+\section{Data Preparation}
+Prior preparation of data using a spreadsheet software
+\begin{enumerate}
+\item Have removed the '*'s in all of the marks column. 
+\item Absentees have been given 0 marks in the respective subjects replacing the 888 marker.
+\item Correcting totalling errors for about 21 records.
+\item Added 'class' fields for each of the marks by using the following discretization. All marks attributes were scaled to 100.
+\begin{itemize}
+\item $< 35$ : FAIL
+\item $< 50$ : PASS
+\item $< 60$ : 2nd class
+\item $< 85$ : 1st class
+\item $> 84$ : Distinction
+\end{itemize}
+\item 
+\end{enumerate}
+
+
+Note : The following columns have the said number of rows with NA data. 
+Shouldn't really matter as they are not being used in any of the experiments
+\begin{itemize}
+
+\item DOB = 1
+\item NRC{\_}MOTHER{\_}NAME = 42
+\item NRC{\_}FATHER{\_}NAME = 32
+\item L1{\_}RESULT = 2
+\item L2{\_}RESULT = 32
+\item L3{\_}RESULT = 38
+
+\end{itemize}
+\section{Data Set Characterization}
+
+\section{Code}
+\texttt{https://github.com/AbhijithMadhav/SSLC-Data-Analysis}

@@ -98,3 +98,6 @@ inspect(sort(cluster.rules, by = "confidence"))
 # Cluster 2 : fresher(1), normal PC(1), general caste(1), 1st class
 # Cluster 3 : normal PC(1), fresher(1), general caste(1), kannada medium(1)
 # Cluster 4 : fail, normal PC(1), s2_fail, s1_fail, kannada(1), l1_fail
+students <- data$allrecords
+hist(c(nrow(students[students$NRC_PHYSICAL_CONDITION == 'N', ]),
+            nrow(students[students$NRC_PHYSICAL_CONDITION == 'B', ])))
